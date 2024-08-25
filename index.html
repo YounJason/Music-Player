@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <title>Music Player</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+    <script src="https://www.youtube.com/iframe_api" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/get-video-id/dist/get-video-id.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/wanakana@5.3.1/wanakana.min.js"></script>
+    <script src="kuromoji.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="script.js"></script>
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+    <div id="top">
+        <select id="service">
+            <option value='youtube' selected>Youtube</option>
+            <option value='spotify'>Spotify</option>
+            <option value='applemusic' disabled>Apple Music (준비중)</option>
+            <option value='localfile'>로컬 파일 불러오기</option>
+        </select>
+        <input type="search" id="search" placeholder="검색어 또는 URL 입력">
+        <div id="searchmusics"></div>
+    </div>
+    <div id="left">
+        <br>
+        <div id="player"></div>
+    </div>
+    <div id="right">
+        <div id="lyrics"></div>
+    </div>
+    <video id="pipvideo" controls muted autoplay></video>
+</body>
+
+</html>
