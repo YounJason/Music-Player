@@ -355,7 +355,7 @@ async function LoadLyric(artist, title) {
 }
 
 $(document).ready(function () {
-    fetch('/.netlify/functions/translate', {
+    fetch('/.netlify/functions/deepl', {
         method: 'POST',
         body: JSON.stringify({
             text: "번역할 텍스트",
