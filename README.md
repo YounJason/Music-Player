@@ -1,1 +1,1 @@
-musicplayer.yjsn.me
+https://musicplayer.yjsn.me
