@@ -39,7 +39,7 @@ async function translateText(text) {
 async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
-            const tokenData = await (await fetch('/.netlify/functions/spotifyAuth')).json();
+            const tokenData = await (await fetch('/.netlify/functions/spotify')).json();
             const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${tokenData.access_token}` }, null);
 
             if ($.type(tokenData) === 'number' || $.type(searchData) === 'number') {
