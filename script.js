@@ -25,7 +25,7 @@ async function GetApi(url, method, headers, body) {
 }
 
 async function translateText(text) {
-    const response = await fetch('/.netlify/functions/googletranslate.js', {
+    const response = await fetch('/.netlify/functions/googletranslate', {
         method: 'POST',
         body: JSON.stringify({ text }),
     });
