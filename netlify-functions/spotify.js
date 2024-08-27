@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function(event, context) {
+    // Dynamically import node-fetch
+    const fetch = (await import('node-fetch')).default;
+
     const SpotifyAuthParams = new URLSearchParams();
     SpotifyAuthParams.append('grant_type', 'client_credentials');
     SpotifyAuthParams.append('client_id', '4242dcadb4c94cc7930152930ff1eeba');
