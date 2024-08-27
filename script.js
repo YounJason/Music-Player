@@ -5,18 +5,6 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
-//spotify
-const SpotifyAuthParams = new URLSearchParams();
-SpotifyAuthParams.append('grant_type', 'client_credentials');
-SpotifyAuthParams.append('client_id', "4242dcadb4c94cc7930152930ff1eeba");
-SpotifyAuthParams.append('client_secret', "c7dfe97221754f0fa8ac47ace42c28bb");
-
-//youtube
-
-//apple music
-
-//local file
-
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
         method: method,
@@ -32,19 +20,14 @@ async function GetApi(url, method, headers, body) {
 }
 
 async function translateText(text) {
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${'AIzaSyCVJUFSvH5CwN5fVLIAJg_okVDhtOmAQLo'}`;
-    const method = 'POST';
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    const body = JSON.stringify({
-        q: text,
-        target: 'ko'
+    const response = await fetch('/.netlify/functions/googletranslate', {
+        method: 'POST',
+        body: JSON.stringify({ text }),
     });
-
-    const result = await GetApi(url, method, headers, body);
+    const result = await response.json();
     return result;
 }
+
 
 async function MusicSearch(query, service) {
     if (query != "") {
