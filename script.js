@@ -10,6 +10,8 @@ SpotifyAuthParams.append('grant_type', 'client_credentials');
 SpotifyAuthParams.append('client_id', "4242dcadb4c94cc7930152930ff1eeba");
 SpotifyAuthParams.append('client_secret', "c7dfe97221754f0fa8ac47ace42c28bb");
 
+//
+
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
         method: method,
@@ -37,7 +39,7 @@ async function translateText(text) {
 async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
-            const tokenData = await GetApi('https://accounts.spotify.com/api/token', 'POST', { 'Content-Type': 'application/x-www-form-urlencoded' }, SpotifyAuthParams);
+            const tokenData = await (await fetch('/.netlify/functions/spotifyAuth')).json();
             const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${tokenData.access_token}` }, null);
 
             if ($.type(tokenData) === 'number' || $.type(searchData) === 'number') {
