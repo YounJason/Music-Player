@@ -1,8 +1,9 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function(event, context) {
+    // Dynamically import node-fetch
+    const fetch = (await import('node-fetch')).default;
+
     const { text } = JSON.parse(event.body);
-    const url = `https://translation.googleapis.com/language/translate/v2?key=AIzaSyCVJUFSvH5CwN5fVLIAJg_okVDhtOmAQLo`;
+    const url = `https://translation.googleapis.com/language/translate/v2?key=YOUR_GOOGLE_TRANSLATE_API_KEY`;
 
     const response = await fetch(url, {
         method: 'POST',
