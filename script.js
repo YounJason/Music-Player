@@ -5,6 +5,11 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
+const SpotifyAuthParams = new URLSearchParams();
+SpotifyAuthParams.append('grant_type', 'client_credentials');
+SpotifyAuthParams.append('client_id', "4242dcadb4c94cc7930152930ff1eeba");
+SpotifyAuthParams.append('client_secret', "c7dfe97221754f0fa8ac47ace42c28bb");
+
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
         method: method,
@@ -20,7 +25,7 @@ async function GetApi(url, method, headers, body) {
 }
 
 async function translateText(text) {
-    const response = await fetch('/.netlify/functions/googletranslate', {
+    const response = await fetch('/.netlify/functions/googletranslate.js', {
         method: 'POST',
         body: JSON.stringify({ text }),
     });
