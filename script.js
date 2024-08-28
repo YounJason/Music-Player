@@ -5,9 +5,6 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
-const tokenData = (await fetch('/.netlify/functions/spotify')).json();
-
-
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
         method: method,
@@ -339,8 +336,9 @@ async function LoadLyric(artist, title) {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(async function () {
     let typingTimer;
+    const tokenData = (await fetch('/.netlify/functions/spotify')).json();
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(function () {
