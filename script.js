@@ -35,6 +35,7 @@ async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
             const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${SpotifyTokenData.access_token}` }, null);
+            console.log(SpotifyTokenData.access_token);
 
             if ($.type(SpotifyTokenData) === 'number' || $.type(searchData) === 'number') {
                 let output = [];
