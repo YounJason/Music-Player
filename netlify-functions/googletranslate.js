@@ -3,7 +3,7 @@ exports.handler = async function(event, context) {
     const fetch = (await import('node-fetch')).default;
 
     const { text } = JSON.parse(event.body);
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${'AIzaSyCVJUFSvH5CwN5fVLIAJg_okVDhtOmAQLo'}`;
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLETRANSLATE_API_KEY}`;
 
     const response = await fetch(url, {
         method: 'POST',
