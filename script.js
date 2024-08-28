@@ -5,7 +5,7 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
-const SpotifyTokenData = fetch('/.netlify/functions/spotify').json();
+const SpotifyTokenData = await fetch('/.netlify/functions/spotify').then(response => response.json())
 
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
