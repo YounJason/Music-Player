@@ -5,6 +5,8 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
+let SpotifyTokenData;
+
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
         method: method,
@@ -32,9 +34,9 @@ async function translateText(text) {
 async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
-            const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${tokenData.access_token}` }, null);
+            const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${SpotifyTokenData.access_token}` }, null);
 
-            if ($.type(tokenData) === 'number' || $.type(searchData) === 'number') {
+            if ($.type(SpotifyTokenData) === 'number' || $.type(searchData) === 'number') {
                 let output = [];
 
                 output.push({
@@ -338,7 +340,7 @@ async function LoadLyric(artist, title) {
 
 $(document).ready(async function () {
     let typingTimer;
-    const tokenData = (await fetch('/.netlify/functions/spotify')).json();
+    SpotifyTokenData = (await fetch('/.netlify/functions/spotify')).json();
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(function () {
