@@ -7,6 +7,7 @@ let change_time = -1;
 
 let SpotifyTokenData;
 fetch('/.netlify/functions/spotify').then(response => response.json()).then(data => {spotifyData = data;})
+console.log(SpotifyTokenData)
 
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
