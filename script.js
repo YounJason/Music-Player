@@ -5,9 +5,7 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
-let SpotifyTokenData;
-fetch('/.netlify/functions/spotify').then(response => response.json()).then(data => {spotifyData = data;})
-console.log(SpotifyTokenData)
+const tokenData = await (await fetch('/.netlify/functions/spotify')).json();
 
 async function GetApi(url, method, headers, body) {
     const response = await fetch(url, {
@@ -36,9 +34,9 @@ async function translateText(text) {
 async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
-            const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${SpotifyTokenData.access_token}` }, null);
+            const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${tokenData.access_token}` }, null);
 
-            if ($.type(SpotifyTokenData) === 'number' || $.type(searchData) === 'number') {
+            if ($.type(tokenData) === 'number' || $.type(searchData) === 'number') {
                 let output = [];
 
                 output.push({
