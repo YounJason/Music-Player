@@ -15,23 +15,13 @@ exports.handler = async function(event, context) {
       text: text,
       target_lang: 'KO' // 한국어로 번역
     });
-  
-    try {
+
       // DeepL API 호출
       const response = await fetch(`${url}?${params}`);
-      const data = await response.json();
   
       // 번역된 텍스트 반환
       return {
-        statusCode: 200,
-        body: JSON.stringify({ translatedText: data.translations[0].text }),
+        body: response,
       };
-    } catch (error) {
-      // 에러 처리
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: '번역 실패', details: error.message }),
-      };
-    }
   };
   
