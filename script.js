@@ -21,7 +21,7 @@ async function GetApi(url, method, headers, body) {
     return data;
 }
 
-async function translateText(text) {
+async function googletranslate(text) {
     const response = await fetch('/.netlify/functions/googletranslate', {
         method: 'POST',
         body: JSON.stringify({ text }),
@@ -30,6 +30,17 @@ async function translateText(text) {
     return result;
 }
 
+async function deepl(text) {
+    const response = await fetch('/.netlify/functions/deepl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text }),
+    });
+    const result = await response.json();
+    return result;
+}
 
 async function MusicSearch(query, service) {
     if (query != "") {
@@ -273,7 +284,7 @@ async function LoadLyric(artist, title) {
                     if (/[\u3040-\u30FF]/.test(lyric.syncedLyrics)) {
                         kuromoji.builder({ dicPath: "https://unpkg.com/kuromoji@0.1.2/dict/" }).build(function (err, tokenizer) {
                             document.querySelectorAll(".lyric").forEach(async function (element) {
-                                translateText(element.innerHTML)
+                                googletranslate(element.innerHTML)
                                     .then(result => {
                                         if (element.innerHTML != result.data.translations[0].translatedText) {
                                             if (/[\u3040-\u30FF]/.test(element.innerHTML)) {
@@ -295,7 +306,7 @@ async function LoadLyric(artist, title) {
                     }
                     else {
                         document.querySelectorAll(".lyric").forEach(async function (element) {
-                            translateText(element.innerHTML)
+                            googletranslate(element.innerHTML)
                                 .then(result => {
                                     if (element.innerHTML != result.data.translations[0].translatedText) {
                                         element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
@@ -341,17 +352,12 @@ $(document).ready(async function () {
     let response = await fetch('/.netlify/functions/spotify');
     SpotifyTokenData = await response.json();
 
-    fetch('/.netlify/functions/deepl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text: "Hello, how are you?" })
-      })
-        .then(response => response.json())
-        .then(data => console.log(data.translatedText))
+
+    deepl('가나다')
+        .then(result => {
+            console.log(result);
+        })
         .catch(error => console.error('Error:', error));
-      
 
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
