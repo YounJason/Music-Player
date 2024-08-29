@@ -18,10 +18,11 @@ exports.handler = async function(event, context) {
 
       // DeepL API 호출
       const response = await fetch(`${url}?${params}`);
+      const data = await response.json();
   
       // 번역된 텍스트 반환
       return {
-        body: response,
+        body: data,
       };
   };
   
