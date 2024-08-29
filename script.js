@@ -35,7 +35,6 @@ async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
             const searchData = await GetApi(`https://api.spotify.com/v1/search?type=track&q=${query}`, 'GET', { Authorization: `Bearer ${SpotifyTokenData.access_token}` }, null);
-            console.log(SpotifyTokenData);
 
             if ($.type(SpotifyTokenData) === 'number' || $.type(searchData) === 'number') {
                 let output = [];
@@ -93,7 +92,6 @@ async function MusicSearch(query, service) {
                     }
                     const videoData = await GetApi(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${searchresult}&key=AIzaSyCVJUFSvH5CwN5fVLIAJg_okVDhtOmAQLo`, 'GET', {}, null);
                     if ($.type(videoData) === 'number') {
-                        console.log('omg');
                         let output = [];
 
                         output.push({
@@ -325,8 +323,6 @@ async function LoadLyric(artist, title) {
 
         document.querySelectorAll(".lyric").forEach(function (element) {
             element.addEventListener('click', function () {
-                console.log(lyric_times[element.getAttribute('id').slice(5)]);
-                console.log($('#service option:selected').val())
                 if (Math.floor(lyric_times[element.getAttribute('id').slice(5)]) == 0 && $('#service option:selected').val() == 'spotify')
                     change_time = 1;
                 else
@@ -345,6 +341,17 @@ $(document).ready(async function () {
     let response = await fetch('/.netlify/functions/spotify');
     SpotifyTokenData = await response.json();
 
+    fetch('/.netlify/functions/deepl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text: "Hello, how are you?" })
+      })
+        .then(response => response.json())
+        .then(data => console.log(data.translatedText))
+        .catch(error => console.error('Error:', error));
+      
 
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
