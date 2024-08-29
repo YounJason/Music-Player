@@ -341,7 +341,11 @@ async function LoadLyric(artist, title) {
 
 $(document).ready(async function () {
     let typingTimer;
-    SpotifyTokenData = (await fetch('/.netlify/functions/spotify'));
+
+    let response = await fetch('/.netlify/functions/spotify');
+    SpotifyTokenData = await response.json();
+
+
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(function () {
