@@ -311,7 +311,7 @@ async function LoadLyric(artist, title) {
                             .then(result => {
                                 console.log(result.translations[0].text.split('\n'))
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
-                                    if (result.translatedText.split('\n')[i][i] != '') {
+                                    if (result.translations[0].text.split('\n')[i] != '') {
                                         document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translations[0].text.split('\n')[i] + '</p>';
                                     }
                                 }
