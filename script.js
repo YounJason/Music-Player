@@ -293,7 +293,7 @@ async function LoadLyric(artist, title) {
                     document.querySelector("#translate").innerHTML = '가사 번역하기';
                 }
                 else {
-                    let before_translate;
+                    let before_translate = '';
 
                     document.querySelectorAll(".lyric").forEach(async function (element) {
                         if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
