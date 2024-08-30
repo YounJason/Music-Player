@@ -5,6 +5,8 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
+let use_deepl = false;
+
 let SpotifyTokenData;
 
 async function GetApi(url, method, headers, body) {
@@ -34,7 +36,7 @@ async function deepl(text) {
     const response = await fetch('/.netlify/functions/deepl', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ text }),
     });
@@ -281,28 +283,18 @@ async function LoadLyric(artist, title) {
                     document.querySelector("#translate").innerHTML = '가사 번역하기';
                 }
                 else {
-                    if (/[\u3040-\u30FF]/.test(lyric.syncedLyrics)) {
-                        kuromoji.builder({ dicPath: "https://unpkg.com/kuromoji@0.1.2/dict/" }).build(function (err, tokenizer) {
-                            document.querySelectorAll(".lyric").forEach(async function (element) {
-                                googletranslate(element.innerHTML)
-                                    .then(result => {
-                                        if (element.innerHTML != result.data.translations[0].translatedText) {
-                                            if (/[\u3040-\u30FF]/.test(element.innerHTML)) {
-                                                let japaneselyric = "";
-                                                tokenizer.tokenize(element.innerHTML).forEach(async function (element) {
-                                                    if (element.pronunciation != undefined)
-                                                        japaneselyric += element.pronunciation + ' ';
-                                                })
-
-                                                element.innerHTML += '<p class="translated_lyric">' + wanakana.toRomaji(japaneselyric) + '<br>' + result.data.translations[0].translatedText + '</p>';
-                                            }
-                                            else
-                                                element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
-                                        }
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            })
+                    if (use_deepl) {
+                        document.querySelectorAll(".lyric").forEach(async function (element) {
+                            deepl(element.innerHTML)
+                                .then(result => {
+                                    if (element.innerHTML != result.translations[0].text) {
+                                        element.innerHTML += '<p class="translated_lyric">' + result.translations[0].text + '</p>';
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
                         })
+                        translated = true;
+                        document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     }
                     else {
                         document.querySelectorAll(".lyric").forEach(async function (element) {
@@ -314,9 +306,9 @@ async function LoadLyric(artist, title) {
                                 })
                                 .catch(error => console.error('Error:', error));
                         })
+                        translated = true;
+                        document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     }
-                    translated = true;
-                    document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                 }
             })
         }
@@ -351,13 +343,6 @@ $(document).ready(async function () {
 
     let response = await fetch('/.netlify/functions/spotify');
     SpotifyTokenData = await response.json();
-
-
-    deepl('가나다')
-        .then(result => {
-            console.log(result);
-        })
-        .catch(error => console.error('Error:', error));
 
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
