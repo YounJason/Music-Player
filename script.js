@@ -309,10 +309,10 @@ async function LoadLyric(artist, title) {
                     if (translator == 1) {
                         deepl(before_translate)
                             .then(result => {
-                                console.log(result.translatedText.split('\n'))
+                                console.log(result.translations[0].text.split('\n'))
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
                                     if (result.translatedText.split('\n')[i][i] != '') {
-                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translatedText.split('\n')[i] + '</p>';
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translations[0].text.split('\n')[i] + '</p>';
                                     }
                                 }
                             })
