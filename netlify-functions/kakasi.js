@@ -1,19 +1,12 @@
 import Kakasi from 'kakasi.js';
 
 export async function handler(event, context) {
-  try {
     const kakasi = new Kakasi();
-    const text = 'こんにちは、世界！';  // 테스트할 일본어 텍스트
+    const text = 'こんにちは、世界！';
     const result = kakasi.convert(text);
 
     return {
-      statusCode: 200,
-      body: JSON.stringify({ result }),
+        statusCode: 200,
+        body: JSON.stringify({ result }),
     };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'An error occurred' }),
-    };
-  }
 }
