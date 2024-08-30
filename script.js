@@ -293,46 +293,56 @@ async function LoadLyric(artist, title) {
                     document.querySelector("#translate").innerHTML = '가사 번역하기';
                 }
                 else {
+                    let before_translate;
+
+                    document.querySelectorAll(".lyric").forEach(async function (element) {
+                        if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
+                            before_translate += element.innerHTML + '\n';
+                        }
+                        else {
+                            before_translate += '\n';
+                        }
+                    })
+
+                    console.log(before_translate.split('\n'));
+
                     if (translator == 1) {
-                        document.querySelectorAll(".lyric").forEach(async function (element) {
-                            if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
-                                deepl(element.innerHTML)
-                                    .then(result => {
-                                        if (element.innerHTML != result.translations[0].text) {
-                                            element.innerHTML += '<p class="translated_lyric">' + result.translations[0].text + '</p>';
-                                        }
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            }
-                        });
+                        deepl(before_translate)
+                            .then(result => {
+                                console.log(result.split('\n'))
+                                for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
+                                    if (result.split('\n')[i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].translatedText + '</p>';
+                                    }
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
                         translated = true;
                         document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     } else if (translator == 2) {
-                        document.querySelectorAll(".lyric").forEach(async function (element) {
-                            if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
-                                googletranslate_otherway(element.innerHTML)
-                                    .then(result => {
-                                        if (element.innerHTML != result.translatedText) {
-                                            element.innerHTML += '<p class="translated_lyric">' + result.translatedText + '</p>';
-                                        }
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            }
-                        });
+                        googletranslate_otherway(before_translate)
+                            .then(result => {
+                                console.log(result.split('\n'))
+                                for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
+                                    if (result.split('\n')[i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].translatedText + '</p>';
+                                    }
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
                         translated = true;
                         document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     } else {
-                        document.querySelectorAll(".lyric").forEach(async function (element) {
-                            if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
-                                googletranslate(element.innerHTML)
-                                    .then(result => {
-                                        if (element.innerHTML != result.data.translations[0].translatedText) {
-                                            element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
-                                        }
-                                    })
-                                    .catch(error => console.error('Error:', error));
-                            }
-                        });
+                        googletranslate(before_translate)
+                            .then(result => {
+                                console.log(result.split('\n'))
+                                for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
+                                    if (result.split('\n')[i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].data.translations[0].translatedText + '</p>';
+                                    }
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
                         translated = true;
                         document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     }
