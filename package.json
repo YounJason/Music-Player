@@ -1,5 +1,8 @@
 {
+    "type": "module",
     "dependencies": {
-        "node-fetch": "^3.0.0"
+        "node-fetch": "^3.0.0",
+        "kakasi.js": "^0.2.0"
     }
 }
+  
