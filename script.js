@@ -312,8 +312,8 @@ async function LoadLyric(artist, title) {
                             if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
                                 googletranslate_otherway(element.innerHTML)
                                     .then(result => {
-                                        if (element.innerHTML != result.data.translations[0].translatedText) {
-                                            element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
+                                        if (element.innerHTML != result.translatedText) {
+                                            element.innerHTML += '<p class="translated_lyric">' + result.translatedText + '</p>';
                                         }
                                     })
                                     .catch(error => console.error('Error:', error));
