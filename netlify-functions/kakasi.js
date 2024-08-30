@@ -1,6 +1,6 @@
-const Kakasi = require('kakasi.js');
+import Kakasi from 'kakasi.js';
 
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   try {
     const kakasi = new Kakasi();
     const text = 'こんにちは、世界！';  // 테스트할 일본어 텍스트
@@ -16,4 +16,4 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: 'An error occurred' }),
     };
   }
-};
+}
