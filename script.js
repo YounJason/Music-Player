@@ -5,7 +5,8 @@ let pip = false;
 let lyric_error = false;
 let change_time = -1;
 
-let use_deepl = false;
+/// 0: 구글 번역, 1: DeepL, 2: 구글 번역 다른 방법
+let translator = 0;
 
 let SpotifyTokenData;
 
@@ -25,6 +26,15 @@ async function GetApi(url, method, headers, body) {
 
 async function googletranslate(text) {
     const response = await fetch('/.netlify/functions/googletranslate', {
+        method: 'POST',
+        body: JSON.stringify({ text }),
+    });
+    const result = await response.json();
+    return result;
+}
+
+async function googletranslate_otherway(text) {
+    const response = await fetch('/.netlify/functions/googletranslate_otherway', {
         method: 'POST',
         body: JSON.stringify({ text }),
     });
@@ -283,13 +293,27 @@ async function LoadLyric(artist, title) {
                     document.querySelector("#translate").innerHTML = '가사 번역하기';
                 }
                 else {
-                    if (use_deepl) {
+                    if (translator == 1) {
                         document.querySelectorAll(".lyric").forEach(async function (element) {
                             if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
                                 deepl(element.innerHTML)
                                     .then(result => {
                                         if (element.innerHTML != result.translations[0].text) {
                                             element.innerHTML += '<p class="translated_lyric">' + result.translations[0].text + '</p>';
+                                        }
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                            }
+                        });
+                        translated = true;
+                        document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
+                    } else if (translator == 2) {
+                        document.querySelectorAll(".lyric").forEach(async function (element) {
+                            if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
+                                googletranslate_otherway(element.innerHTML)
+                                    .then(result => {
+                                        if (element.innerHTML != result.data.translations[0].translatedText) {
+                                            element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
                                         }
                                     })
                                     .catch(error => console.error('Error:', error));
@@ -312,7 +336,7 @@ async function LoadLyric(artist, title) {
                         translated = true;
                         document.querySelector("#translate").innerHTML = '번역된 가사 숨기기';
                     }
-                    
+
                 }
             })
         }
