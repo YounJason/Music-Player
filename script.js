@@ -309,7 +309,7 @@ async function LoadLyric(artist, title) {
                     if (translator == 1) {
                         deepl(before_translate)
                             .then(result => {
-                                console.log(result.translatedText.split('\n')[i])
+                                console.log(result.translatedText.split('\n'))
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
                                     if (result.translatedText.split('\n')[i][i] != '') {
                                         document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translatedText.split('\n')[i] + '</p>';
@@ -322,7 +322,7 @@ async function LoadLyric(artist, title) {
                     } else if (translator == 2) {
                         googletranslate_otherway(before_translate)
                             .then(result => {
-                                console.log(result.translatedText.split('\n')[i])
+                                console.log(result.translatedText.split('\n'))
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
                                     if (result.translatedText.split('\n')[i][i] != '') {
                                         document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translatedText.split('\n')[i] + '</p>';
