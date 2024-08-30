@@ -309,10 +309,10 @@ async function LoadLyric(artist, title) {
                     if (translator == 1) {
                         deepl(before_translate)
                             .then(result => {
-                                console.log(result.split('\n'))
+                                console.log(result.translatedText.split('\n')[i])
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
-                                    if (result.split('\n')[i] != '') {
-                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].translatedText + '</p>';
+                                    if (result.translatedText.split('\n')[i][i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translatedText.split('\n')[i] + '</p>';
                                     }
                                 }
                             })
@@ -322,10 +322,10 @@ async function LoadLyric(artist, title) {
                     } else if (translator == 2) {
                         googletranslate_otherway(before_translate)
                             .then(result => {
-                                console.log(result.split('\n'))
+                                console.log(result.translatedText.split('\n')[i])
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
-                                    if (result.split('\n')[i] != '') {
-                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].translatedText + '</p>';
+                                    if (result.translatedText.split('\n')[i][i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.translatedText.split('\n')[i] + '</p>';
                                     }
                                 }
                             })
@@ -335,10 +335,10 @@ async function LoadLyric(artist, title) {
                     } else {
                         googletranslate(before_translate)
                             .then(result => {
-                                console.log(result.split('\n'))
+                                console.log(result.data.translations[0].translatedText.split('\n'))
                                 for (let i = 0; i < document.querySelectorAll(".lyric").length; i++) {
-                                    if (result.split('\n')[i] != '') {
-                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.split('\n')[i].data.translations[0].translatedText + '</p>';
+                                    if (result.data.translations[0].translatedText.split('\n')[i] != '') {
+                                        document.querySelectorAll(".lyric")[i].innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText.split('\n')[i] + '</p>';
                                     }
                                 }
                             })
