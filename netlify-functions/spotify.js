@@ -1,4 +1,4 @@
-exports.handler = async function(event, context) {
+export async function handler(event, context) {
     // Dynamically import node-fetch
     const fetch = (await import('node-fetch')).default;
 
@@ -21,4 +21,4 @@ exports.handler = async function(event, context) {
         statusCode: 200,
         body: JSON.stringify(data),
     };
-};
+}
