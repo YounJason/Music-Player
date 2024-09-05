@@ -341,16 +341,35 @@ async function LoadLyric(artist, title) {
             })
         }
 
-        document.querySelector("#autoscroll").addEventListener('click', function () {
+        document.querySelector("#autoscrollbtn").addEventListener('click', function () {
             if (autoscrolling) {
-                document.querySelector("#autoscroll").innerHTML = '자동 스크롤 켜기';
+                document.querySelector("#autoscrollbtn").innerHTML = '<i class="icons ri-arrow-down-line"></i> 자동 스크롤';
                 autoscrolling = false;
-            }
-            else {
-                document.querySelector("#autoscroll").innerHTML = '자동 스크롤 끄기';
+            } else {
+                document.querySelector("#autoscrollbtn").innerHTML = '<i class="icons ri-arrow-down-line"></i> 스크롤 끄기';
                 autoscrolling = true;
             }
-        })
+        });
+        
+        document.querySelector("#translatebtn").addEventListener('click', function () {
+            if (translated) {
+                document.querySelectorAll(".translated_lyric").forEach(function (element) {
+                    element.remove();
+                });
+                translated = false;
+                document.querySelector("#translatebtn").innerHTML = '<i class="icons ri-translate"></i> 번역';
+            } else {
+                document.querySelectorAll(".lyric").forEach(async function (element) {
+                    if (!/[\uAC00-\uD7A3]/.test(element.innerHTML)) {
+                        const result = await googletranslate(element.innerHTML);
+                        element.innerHTML += '<p class="translated_lyric">' + result.data.translations[0].translatedText + '</p>';
+                    }
+                });
+                translated = true;
+                document.querySelector("#translatebtn").innerHTML = '<i class="icons ri-translate"></i> 번역 끄기';
+            }
+        });
+        
 
         document.querySelectorAll(".lyric").forEach(function (element) {
             element.addEventListener('click', function () {
