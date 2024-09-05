@@ -158,25 +158,39 @@ iframe {
     font-size: 18px;
 }
 
-#autoscrollbtn, #translatebtn {
+#autoscrollbtn {
     height: fit-content;
     width: fit-content;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 5px 5px 0px 0px;
     border: 1px solid #ccc;
+    border-bottom: 0;
     background-color: white;
     margin: 15px;
     margin-bottom: 0px;
+    margin-left: 0px;
 }
 
-#autoscrollbtn {
-    margin-left: 0px; /* Position next to playlist tab */
+#twobtn {
+    border-radius: 5px 0px 0px 0px;
+    margin-right: 0px;
+    border-right: 0;
+
 }
 
 #translatebtn {
-    margin-left: 10px; /* Slightly separated from the autoscroll button */
+    height: fit-content;
+    width: fit-content;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 0px 5px 0px 0px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    background-color: white;
+    margin: 15px;
+    margin-bottom: 0px;
+    margin-left: 0px;
 }
-
 
 .lyric {
     font-size: x-large;

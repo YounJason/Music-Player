@@ -271,9 +271,10 @@ async function LoadLyric(artist, title) {
     }
     if (lyric != undefined) {
 
-        let fullLyrics = '<br><br><span id="autoscroll">자동 스크롤 켜기</span>';
+        let fullLyrics = '';
+        document.querySelector("#autoscrollbtn").style.display = 'block';
         if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s)))
-            fullLyrics += ' <span id="translate">가사 번역하기</span>';
+            document.querySelector("#translatebtn").style.display = 'block';
         if (lyric_error)
             fullLyrics += '<p id="lyric_error">이 노래의 가사는 부정확할 수 있습니다.</p>';
         lyric_times = [];
