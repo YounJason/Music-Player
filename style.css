@@ -171,11 +171,10 @@ iframe {
     margin-left: 0px;
 }
 
-.twobtn {
+#autoscrollbtn.twobtn {
     border-radius: 5px 0px 0px 0px;
     margin-right: 0px;
     border-right: 0;
-
 }
 
 #translatebtn {
