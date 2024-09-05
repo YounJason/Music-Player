@@ -288,7 +288,7 @@ async function LoadLyric(artist, title) {
         document.querySelector("#lyrics").innerHTML = fullLyrics;
 
         if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s))) {
-            document.querySelector("#translate").addEventListener('click', function () {
+            document.querySelector("#translatebtn").addEventListener('click', function () {
                 if (translated) {
                     document.querySelectorAll(".translated_lyric").forEach(function (element) {
                         element.remove();
