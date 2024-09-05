@@ -272,9 +272,12 @@ async function LoadLyric(artist, title) {
     if (lyric != undefined) {
 
         let fullLyrics = '';
-        document.querySelector("#autoscrollbtn").style.display = 'block';
-        if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s)))
-            document.querySelector("#translatebtn").style.display = 'block';
+        document.querySelector("#autoscrollbtn").style.display = 'inline';
+        document.querySelector("#autoscrollbtn").className = '';
+        if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s))){
+            document.querySelector("#translatebtn").style.display = 'inline';
+            document.querySelector("#autoscrollbtn").className += 'twobtn';
+        }
         if (lyric_error)
             fullLyrics += '<p id="lyric_error">이 노래의 가사는 부정확할 수 있습니다.</p>';
         lyric_times = [];
