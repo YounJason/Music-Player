@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/wanakana@5.3.1/wanakana.min.js"></script>
     <script src="https://unpkg.com/kuromoji@0.1.2/build/kuromoji.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="script.js"></script>
     <link rel="shortcut icon" href="#">
@@ -26,12 +27,16 @@
         <input type="search" id="search" placeholder="검색어 또는 URL 입력">
         <div id="searchmusics"></div>
     </div>
-    <div id="left">
-        <br>
-        <div id="player"></div>
-    </div>
-    <div id="right">
-        <div id="lyrics"></div>
+    <div id="onplayer">
+        <div id="left">
+            <br>
+            <div id="player"></div>
+        </div>
+        <div id="right">
+            <button id="lyrictab"><i class="icons ri-edit-line"></i> 가사</button><button id="playlisttab"><i class="icons ri-music-2-line"></i> 재생 목록</button>
+            <div id="lyrics"></div>
+            <div id="playlist"></div>
+        </div>
     </div>
     <video id="pipvideo" controls muted autoplay></video>
 </body>
