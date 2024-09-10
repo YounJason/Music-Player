@@ -272,7 +272,7 @@ async function LoadLyric(artist, title) {
     if (lyric != undefined) {
 
         let fullLyrics = '';
-        document.querySelector("#autoscrollbtn")..style.visibility = 'visible';
+        document.querySelector("#autoscrollbtn").style.visibility = 'visible';
         document.querySelector("#autoscrollbtn").className = '';
         if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s))){
             document.querySelector("#translatebtn").style.visibility = 'visible';
