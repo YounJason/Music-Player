@@ -54,6 +54,17 @@ async function deepl(text) {
     return result;
 }
 
+function toggleAutoscroll() {
+    const btn = document.querySelector("#autoscrollbtn");
+    if (autoscrolling) {
+        btn.innerHTML = '<i class="icons ri-arrow-down-line"></i> 자동 스크롤';
+        autoscrolling = false;
+    } else {
+        btn.innerHTML = '<i class="icons ri-arrow-down-line"></i> 스크롤 끄기';
+        autoscrolling = true;
+    }
+}
+
 async function MusicSearch(query, service) {
     if (query != "") {
         if (service == 'spotify') {
@@ -287,17 +298,6 @@ async function LoadLyric(artist, title) {
         }
         document.querySelector("#lyrics").innerHTML = fullLyrics;
 
-
-        document.querySelector("#autoscrollbtn").addEventListener('click', function () {
-            if (autoscrolling) {
-                document.querySelector("#autoscrollbtn").innerHTML = '<i class="icons ri-arrow-down-line"></i> 자동 스크롤';
-                autoscrolling = false;
-            } else {
-                document.querySelector("#autoscrollbtn").innerHTML = '<i class="icons ri-arrow-down-line"></i> 스크롤 끄기';
-                autoscrolling = true;
-            }
-        });
-        
         document.querySelector("#translatebtn").addEventListener('click', function () {
             if (translated) {
                 document.querySelectorAll(".translated_lyric").forEach(function (element) {
