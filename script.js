@@ -285,7 +285,7 @@ async function LoadLyric(artist, title) {
         let fullLyrics = '';
         document.querySelector("#autoscrollbtn").style.visibility = 'visible';
         document.querySelector("#pipbtn").style.visibility = 'visible';
-        document.querySelector("#autoscrollbtn").className = '';
+        document.querySelector("#pipbtn").className = '';
         if (lyric.syncedLyrics.split(/(?<=\.|\?|!|\n)/g).some(s => !/[\uAC00-\uD7A3]/.test(s))){
             document.querySelector("#translatebtn").style.visibility = 'visible';
             document.querySelector("#pipbtn").className += 'twobtn';

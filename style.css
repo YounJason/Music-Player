@@ -162,13 +162,15 @@ iframe {
     height: fit-content;
     width: fit-content;
     padding: 5px;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 0px 0px 0px;
     border: 1px solid #ccc;
     border-bottom: 0;
     background-color: white;
     margin: 15px;
     margin-bottom: 0px;
     margin-left: 0px;
+    margin-right: 0px;
+    border-right: 0;
 }
 
 #pipbtn {
