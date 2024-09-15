@@ -338,6 +338,7 @@ $(document).ready(async function () {
 
     let response = await fetch('/.netlify/functions/spotify');
     SpotifyTokenData = await response.json();
+    console.log(SpotifyTokenData)
 
     $('#search').on('input', function () {
         clearTimeout(typingTimer);
